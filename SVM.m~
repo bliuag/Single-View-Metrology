@@ -1,4 +1,0 @@
-
-initialize();
-
-run GUI.m;

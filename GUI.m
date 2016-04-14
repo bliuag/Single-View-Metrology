@@ -23,7 +23,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 12-Apr-2016 13:54:31
+% Last Modified by GUIDE v2.5 14-Apr-2016 19:42:29
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -86,26 +86,36 @@ function pictureHolder_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to pictureHolder (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
-image= imread('image.jpg');
-imshow(image);
+global picture;
+imshow(picture);
 set (gcf, 'WindowButtonMotionFcn', @mouseMove);
-set (gcf,'ButtonDownFcn',@mouseClick);
+set (gcf,'WindowButtonDownFcn',@mouseClick);
 
 % Hint: place code in OpeningFcn to populate pictureHolder
 
-% --- Executes on selection change in popupmenu1.
-function popupmenu1_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu1 (see GCBO)
+% --- Executes on selection change in axis.
+function axis_Callback(hObject, eventdata, handles)
+% hObject    handle to axis (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu1 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu1
-
+% Hints: contents = cellstr(get(hObject,'String')) returns axis contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from axis
+global direction;
+contents = cellstr(get(hObject,'String'));
+direct=contents{get(hObject,'Value')};
+switch(direct)
+    case 'X-axis'
+        direction='x';
+    case 'Y-axis'
+        direction='y';
+    case 'Z-axis'
+        direction='z';
+end
 
 % --- Executes during object creation, after setting all properties.
-function popupmenu1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu1 (see GCBO)
+function axis_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to axis (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -116,37 +126,36 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on selection change in popupmenu3.
-function popupmenu3_Callback(hObject, eventdata, handles)
-% hObject    handle to popupmenu3 (see GCBO)
+% --- Executes on selection change in primitives.
+function primitives_Callback(hObject, eventdata, handles)
+% hObject    handle to primitives (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu3 contents as cell array
-%        contents{get(hObject,'Value')} returns selected item from popupmenu3
-pictureHolder = findobj('Tag','pictureHolder');
-axes(pictureHolder)
+% Hints: contents = cellstr(get(hObject,'String')) returns primitives contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from primitives
 str=get(hObject,'String');
 val=get(hObject,'Value');
+global dataType;
+% Parallel Lines
+% Origin
+% Reference Length
+% Measuring Lines
+% Texture Polygons
+% Texture Path
+
 switch str{val}
-    case 'X-axis'
-        matlabImage = imread('image.jpg');
-        image(matlabImage)
-     case 'Y-axis'
-        matlabImage = imread('image1.jpg');
-        image(matlabImage)
-     case 'Z-axis'
-        matlabImage = imread('image2.jpg');
-        image(matlabImage)
-        
+    case 'Parallel Lines'
+       dataType=1;
+       updatePicture();
+     case 'Origin'
+       dataType=2;
+       updatePicture();
         
 end
-axis off
-axis image
-
 % --- Executes during object creation, after setting all properties.
-function popupmenu3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu3 (see GCBO)
+function primitives_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to primitives (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -157,9 +166,9 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on key press with focus on popupmenu3 and none of its controls.
-function popupmenu3_KeyPressFcn(hObject, eventdata, handles)
-% hObject    handle to popupmenu3 (see GCBO)
+% --- Executes on key press with focus on primitives and none of its controls.
+function primitives_KeyPressFcn(hObject, eventdata, handles)
+% hObject    handle to primitives (see GCBO)
 % eventdata  structure with the following fields (see MATLAB.UI.CONTROL.UICONTROL)
 %	Key: name of the key that was pressed, in lower case
 %	Character: character interpretation of the key(s) that was pressed
@@ -183,5 +192,41 @@ function mouseMove (object, eventdata)
 C = get (gca, 'CurrentPoint');
 textX=findobj('Tag','pixelX');
 textY=findobj('Tag','pixelY');
-set(textX,'String',num2str(C(1,1)));
-set(textY,'String',num2str(C(1,2)));
+set(textX,'String',num2str(int64(C(1,1))));
+set(textY,'String',num2str(int64(C(1,2))));
+
+function mouseClick (object,eventdata)
+C=get (gca,'CurrentPoint');
+addDataPoint(int64(C(1,1)),int64(C(1,2)));
+
+
+% --- Executes on button press in calculate.
+function calculate_Callback(hObject, eventdata, handles)
+% hObject    handle to calculate (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+calculate();
+
+
+
+function Info_Callback(hObject, eventdata, handles)
+% hObject    handle to info (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of info as text
+%        str2double(get(hObject,'String')) returns contents of info as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function info_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to info (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

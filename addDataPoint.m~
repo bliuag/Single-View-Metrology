@@ -1,0 +1,20 @@
+function addDataPoint( x,y )
+%UNTITLED6 Summary of this function goes here
+%   Detailed explanation goes here
+global dataType;
+global paraLinesx;
+global paraLinesy;
+global paraLinesz;
+global direction;
+switch dataType
+    case 1    
+        switch(direction)
+            case 'x'
+                paraLinesx(:,:)=[paraLines(direction,:,:);[x,y]];
+        end
+        paraLines(direction,:,:)=[paraLines(direction,:,:);[x,y]];
+        updatePicture();
+end
+
+end
+
