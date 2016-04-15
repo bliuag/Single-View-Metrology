@@ -23,7 +23,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 14-Apr-2016 19:42:29
+% Last Modified by GUIDE v2.5 15-Apr-2016 04:34:50
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -148,10 +148,20 @@ switch str{val}
     case 'Parallel Lines'
        dataType=1;
        updatePicture();
-     case 'Origin'
+       updateInfo();
+    case 'Origin'
        dataType=2;
        updatePicture();
-        
+       updateInfo();
+    case 'Reference Plane Point'
+       dataType=3;
+       updatePicture();
+       updateInfo();
+    case 'Reference Height Point'
+        dataType=4;
+        updatePicture();
+        updateInfo();
+       
 end
 % --- Executes during object creation, after setting all properties.
 function primitives_CreateFcn(hObject, eventdata, handles)
@@ -205,8 +215,13 @@ function calculate_Callback(hObject, eventdata, handles)
 % hObject    handle to calculate (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-calculate();
+global dataType;
+switch dataType
+    case 1
+        calculate_vlines();
+    case 3
+        calculate_H();
+end
 
 
 
@@ -226,6 +241,36 @@ function info_CreateFcn(hObject, eventdata, handles)
 % handles    empty - handles not created until after all CreateFcns called
 
 % Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes during object creation, after setting all properties.
+function Load_Button_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to Load_Button (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+
+% --- Executes on selection change in listbox2.
+function listbox2_Callback(hObject, eventdata, handles)
+% hObject    handle to listbox2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns listbox2 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from listbox2
+
+
+% --- Executes during object creation, after setting all properties.
+function listbox2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to listbox2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: listbox controls usually have a white background on Windows.
 %       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
