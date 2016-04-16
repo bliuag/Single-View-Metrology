@@ -29,11 +29,17 @@ vx=double([0 0 0]);
 vy=double([0 0 0]);
 vz=double([0 0 0]);
 vl=double([0 0 0]);
+global afa;
+afa=0;
 global rpoints;
 rpoints=rand(0,5);
 global hpoint;
 hpoint=rand(0,5);
 global H;
-H=rand(3,3);
+H=double(rand(3,3));
+global points;
+points=double(rand(0,5));
+global setPlanes;
+setPlanes=rand(0,4);
 end
 
