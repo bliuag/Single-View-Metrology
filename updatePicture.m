@@ -9,6 +9,7 @@ global dataType;
 global origin;
 global rpoints;
 global hpoint;
+global points;
 pic=picture;
 pictureHolder=findobj('Tag','pictureHolder');
 axes(pictureHolder)
@@ -62,6 +63,24 @@ switch dataType
         [n,~]=size(hpoint);
         for i=1:n
             plot([hpoint(i,1)-2,hpoint(i,1)+2],[hpoint(i,2)-2,hpoint(i,2)+2],'Color','r','LineWidth',4)
+        end
+    case 5
+        [n,~]=size(points);
+        for i=1:n
+            plot([points(i,1)-2,points(i,1)+2],[points(i,2)-2,points(i,2)+2],'Color','r','LineWidth',4)
+        end
+        if(n~=0)
+%             position=points(:,1:2)-1;
+%             value=1:n;
+%             RGB=insertText(pic,position,value,'AnchorPoint','RightBottom');
+%             imshow(RGB);
+%             Add Comment C
+            for i=1:n
+                p=double(points(i,1)+10);
+                q=double(points(i,2)+10);
+                str=strcat('POINT',num2str(i));
+                text(p,q,str);
+            end
         end
 end
 

@@ -12,6 +12,7 @@ global vl;
 global origin;
 global rpoints;
 global hpoint;
+global points;
 text=findobj('Tag','info');
 switch dataType
     case 1
@@ -65,6 +66,18 @@ switch dataType
         end
         str=sprintf(str);
         set(text,'String',str);
+    case 5
+        str='Points:\n';
+        for i=1:size(points,1)
+           if mod(i,2)==1
+               str=strcat(str,'#',num2str(i),':',mat2str(points(i,1:2)),'->',mat2str(points(i,3:5)),' base\n');
+           else
+               str=strcat(str,'#',num2str(i),':',mat2str(points(i,1:2)),'->',mat2str(points(i,3:5)),' top\n');
+           end
+        end
+        str=sprintf(str);
+        set(text,'String',str);
 end
+
 end
 
