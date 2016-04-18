@@ -41,5 +41,7 @@ global points;
 points=double(rand(0,5));
 global setPlanes;
 setPlanes=rand(0,4);
+global textureOrigins;
+textureOrigins=rand(0,2);
 end
 
