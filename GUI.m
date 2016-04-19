@@ -23,7 +23,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 16-Apr-2016 22:12:14
+% Last Modified by GUIDE v2.5 18-Apr-2016 17:49:05
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -293,7 +293,7 @@ if (size(data,2)~=4)
    warndlg('Please enter 4 points!','Error');
 end
 if (size(data,2)==4)
-   setPlanes=[setPlanes;data];
+   setPlanes=[data];
    disp(setPlanes);
 end
 
@@ -305,3 +305,19 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 extractTexture();
 
+
+% --- Executes on button press in pushbutton5.
+function pushbutton5_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+savewrl();
+
+
+% --- Executes on button press in pushbutton6.
+function pushbutton6_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+saveVanishing();
+  
