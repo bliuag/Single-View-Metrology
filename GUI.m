@@ -23,7 +23,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 18-Apr-2016 17:49:05
+% Last Modified by GUIDE v2.5 23-Apr-2016 00:08:05
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -287,14 +287,16 @@ function pushbutton3_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global setPlanes;
+global transformH;
 x = inputdlg('Enter space-separated numbers representing the points that are co-plane:');
 data = str2num(x{:}); 
 if (size(data,2)~=4)
    warndlg('Please enter 4 points!','Error');
 end
 if (size(data,2)==4)
-   setPlanes=[data];
+   setPlanes=[setPlanes;data];
    disp(setPlanes);
+   
 end
 
 
@@ -321,3 +323,25 @@ function pushbutton6_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 saveVanishing();
   
+
+
+% --- Executes on slider movement.
+function slider3_Callback(hObject, eventdata, handles)
+% hObject    handle to slider3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end

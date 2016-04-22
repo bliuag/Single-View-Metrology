@@ -14,10 +14,10 @@ Collision {
    geometry IndexedFaceSet {
    coord Coordinate {
    point [
-       0.00000   0.00000   0.00000, 
-       0.00000   1.00000   0.00000, 
-       0.00000   0.00000   0.00000, 
-       0.00000   1.00000   0.00000, 
+       0.02349   0.01678   0.62752, 
+      -0.00671   1.00000   0.63758, 
+       0.02349   0.01678   0.00000, 
+      -0.00671   1.00000   0.00000, 
 
    ]
    }
@@ -26,82 +26,10 @@ Collision {
    ]
    texCoord TextureCoordinate {
     point [
-     2.00 4.00,
-     3.00 3.00,
-     2.00 3.00,
-     3.00 2.00,
-
-    ]
-   }
-   texCoordIndex [
-    0,1,2,3,-1,
-   ]
-   solid FALSE
-  }
-}
- ] 
-}
- Shape {
-  appearance Appearance {
-   texture ImageTexture {
-   url "2.jpg"
-  }  
-  }
-   geometry IndexedFaceSet {
-   coord Coordinate {
-   point [
-       1.00000   0.00000   0.00000, 
-       0.00000   0.00000   0.00000, 
-       1.00000   0.00000   0.00000, 
-       0.00000   0.00000   0.00000, 
-
-   ]
-   }
-   coordIndex [
-    0,1,2,3,-1,
-   ]
-   texCoord TextureCoordinate {
-    point [
-     0.00 2.00,
-     1.00 2.00,
-     0.00 1.00,
-     1.00 2.00,
-
-    ]
-   }
-   texCoordIndex [
-    0,1,2,3,-1,
-   ]
-   solid FALSE
-  }
-}
- ] 
-}
- Shape {
-  appearance Appearance {
-   texture ImageTexture {
-   url "3.jpg"
-  }  
-  }
-   geometry IndexedFaceSet {
-   coord Coordinate {
-   point [
-       0.00000   0.00000   0.00000, 
-       0.00000   1.00000   0.00000, 
-       1.00000   0.00000   0.00000, 
-       1.00000   1.00000   1.00000, 
-
-   ]
-   }
-   coordIndex [
-    0,1,2,3,-1,
-   ]
-   texCoord TextureCoordinate {
-    point [
-     1.00 1.00,
-     2.00 1.00,
-     1.00 0.00,
-     1.00 0.00,
+     -0.00 0.00,
+     217.38 0.00,
+     -1.45 141.65,
+     208.00 135.70,
 
     ]
    }
