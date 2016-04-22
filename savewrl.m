@@ -6,6 +6,7 @@ global basex;
 global basey;
 global basez;
 global textureOrigins;
+global transformH;
 disp([basex,basey,basez]);
 base=max([basex,basey,basez]);
 
@@ -13,7 +14,7 @@ disp('xxxx');
 
 [n,~]=size(setPlanes);
 
-fid = fopen('test.txt','w');
+fid = fopen('test.wrl','w');
 
 
 
@@ -46,9 +47,20 @@ for i=1:n
     
     fprintf(fid, '\n   ]\n   texCoord TextureCoordinate {\n    point [\n');
     
+    
+    tempH=reshape(transformH(i,:),[3,3]);
+    
     for j = 1:4
         poi = setPlanes(i,j);
-        fprintf(fid, '     %3.2f %3.2f,\n',double( points(poi,1)-textureOrigins(i,1))/double(cur_width),double( points(poi,2)-textureOrigins(i,2))/double(cur_height));
+        tempp=double([points(poi,1),points(poi,2),1])*tempH;
+        tempp=tempp./tempp(3);
+%         fprintf(fid, '     %3.2f %3.2f,\n', ...
+%         double(tempp(1)-textureOrigins(i,1))./double(cur_width), ...
+%         double(tempp(2)-textureOrigins(i,2))./double(cur_height));
+    
+        fprintf(fid, '     %3.2f %3.2f,\n', ...
+        double(tempp(1)), ...
+        double(tempp(2)));
     end
     fprintf(fid, '\n    ]\n   }\n   texCoordIndex [\n    ');
     for j = 1:4
