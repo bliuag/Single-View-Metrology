@@ -34,29 +34,32 @@ for t=1:n
     p(3,4)=sqrt( (norm(rp(3,:)-rp(1,:)))^2 - (p(3,3))^2 );
     p(4,3)=dot(rp(4,:)-rp(1,:),rp(2,:)-rp(1,:))./norm(rp(2,:)-rp(1,:));
     p(4,4)=sqrt( (norm(rp(4,:)-rp(1,:)))^2 - (p(4,3))^2 );
-    A = rand(0,9);
+    A = rand(0,7);
     for i=1:4
-       B=rand(2,9);
+       B=rand(2,7);
+       B=rand(2,7);
        B(1,1)=p(i,1);
        B(1,2)=p(i,2);
        B(1,3)=1;
        B(1,4:6)=zeros(1,3);
-       B(1,7)=-p(i,3)*p(i,1);
-       B(1,8)=-p(i,3)*p(i,2);
-       B(1,9)=-p(i,3);
+       B(1,7)=-p(i,3);
        B(2,1:3)=zeros(1,3);
        B(2,4:5)=p(i,1:2);
        B(2,6)=1;
-       B(2,7)=-p(i,4)*p(i,1);
-       B(2,8)=-p(i,4)*p(i,2);
-       B(2,9)=-p(i,4);
+       B(2,7)=-p(i,4);
        A=[A;B];
     end
 
     C=A'*A;
     
     [V,D]=eig(C);
- 
+%     [U,S,V]=svd(C);
+%     disp(C);
+%     disp(U);
+%     disp(S);
+%     disp(V);
+%     disp(U*S*V');
+
     mi=double(D(1,1)); minn=1;
     for i=2:size(D,1)
         if (D(i,i)<mi)
@@ -64,10 +67,47 @@ for t=1:n
         end
     end
     h=V(:,minn);
-
-    HH=reshape(h,[3,3]);
-    HH(1:2,3)=0;
+    disp('h:');
+    disp(h);
+    
+    disp('A*h\n');
+    disp(A*h);
+    
+    HH=reshape(h(1:6),[3,2]);
+    HH=HH';
+    HH=[HH;0,0,h(7)];
+    HH=HH';
+    
+%     disp('HH after reshape:');
+%     disp(HH);
     HH=HH./HH(3,3);
+    
+%     disp('HH after normal:');
+%     disp(HH);
+%     
+%     disp('origin &  *HH:\n');
+%     mul=double([tempp(1,1:2),1.0]);
+%     disp(mul);
+%     mul=mul*HH;
+%     disp(mul);
+%     
+%     
+%     mul=double([tempp(2,1:2),1.0]);
+%     disp(mul);
+%     mul=mul*HH;
+%     disp(mul);
+%     
+%     mul=double([tempp(3,1:2),1.0]);
+%     disp(mul);
+%     mul=mul*HH;
+%     disp(mul);
+%     
+%     mul=double([tempp(4,1:2),1.0]);
+%     disp(mul);
+%     mul=mul*HH;
+%     disp(mul);
+%     
+%     
 
     
     left=min(p(:,1));
@@ -100,7 +140,7 @@ for t=1:n
     tImage(:,:,3)=tImageb(:,:,1);
 
     
-    ox=max([q1(1),q2(1),q3(1),q4(1)]);
+    ox=min([q1(1),q2(1),q3(1),q4(1)]);
     oy=max([q1(2),q2(2),q3(2),q4(2)]);
     textureOrigins=[textureOrigins;[ox,oy]];
     transformH=[transformH;reshape(HH,[1,9])];
