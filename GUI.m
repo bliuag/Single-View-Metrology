@@ -286,8 +286,9 @@ function pushbutton3_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 global setPlanes;
-global transformH;
+%setPlanes=rand(0,4);
 x = inputdlg('Enter space-separated numbers representing the points that are co-plane:');
 data = str2num(x{:}); 
 if (size(data,2)~=4)

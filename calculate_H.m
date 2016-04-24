@@ -4,25 +4,21 @@ function calculate_H()
 global rpoints;
 global H;
 
-A = rand(0,9);
+A = rand(0,7);
 if (size(rpoints,1)<4)
     warndlg('Not enough reference points!','Error')
 else 
     for i=1:4
-       B=rand(2,9);
+       B=rand(2,7);
        B(1,1)=rpoints(i,1);
        B(1,2)=rpoints(i,2);
        B(1,3)=1;
        B(1,4:6)=zeros(1,3);
-       B(1,7)=-rpoints(i,3)*rpoints(i,1);
-       B(1,8)=-rpoints(i,3)*rpoints(i,2);
-       B(1,9)=-rpoints(i,3);
+       B(1,7)=-rpoints(i,3);
        B(2,1:3)=zeros(1,3);
        B(2,4:5)=rpoints(i,1:2);
        B(2,6)=1;
-       B(2,7)=-rpoints(i,4)*rpoints(i,1);
-       B(2,8)=-rpoints(i,4)*rpoints(i,2);
-       B(2,9)=-rpoints(i,4);
+       B(2,7)=-rpoints(i,4);
        A=[A;B];
     end
     %disp(A);
@@ -40,8 +36,10 @@ else
          end
      end
     h=V(:,minn);
-    H=reshape(h,[3,3]);
+    H=reshape(h(1:6),[3,2]);
     H=H';
+    H=[H;0,0,h(7)];
+    H=H./H(3,3);
 
      str='Matrix H is:\n';
      str=strcat(str,mat2str(H));
