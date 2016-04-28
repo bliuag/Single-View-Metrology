@@ -59,11 +59,6 @@ switch dataType
         for i=1:n
             plot([rpoints(i,1)-2,rpoints(i,1)+2],[rpoints(i,2)-2,rpoints(i,2)+2],'Color','b','LineWidth',4)
         end
-    case 4
-        [n,~]=size(hpoint);
-        for i=1:n
-            plot([hpoint(i,1)-2,hpoint(i,1)+2],[hpoint(i,2)-2,hpoint(i,2)+2],'Color','r','LineWidth',4)
-        end
     case 5
         [n,~]=size(points);
         for i=1:n

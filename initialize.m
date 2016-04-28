@@ -1,6 +1,8 @@
 function initialize()
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
+global cursor;
+cursor=rand(1,2);
 global picture;
 picture=imread('image.jpg');
 global dataType;
@@ -32,7 +34,7 @@ vl=double([0 0 0]);
 global afa;
 afa=0;
 global rpoints;
-rpoints=rand(0,5);
+rpoints=rand(3,5);
 global hpoint;
 hpoint=rand(0,5);
 global H;

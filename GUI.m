@@ -23,7 +23,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 23-Apr-2016 00:08:05
+% Last Modified by GUIDE v2.5 24-Apr-2016 23:29:21
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -153,14 +153,10 @@ switch str{val}
        dataType=2;
        updatePicture();
        updateInfo();
-    case 'Reference Plane Point'
+    case 'Reference Point'
        dataType=3;
        updatePicture();
        updateInfo();
-    case 'Reference Height Point'
-        dataType=4;
-        updatePicture();
-        updateInfo();
     case 'Measuring Points'
         dataType=5;
         updatePicture();
@@ -203,15 +199,23 @@ picture=imread(file);
 updatePicture();
 
 function mouseMove (object, eventdata)
+global cursor;
+global picture;
 C = get (gca, 'CurrentPoint');
 textX=findobj('Tag','pixelX');
 textY=findobj('Tag','pixelY');
-set(textX,'String',num2str(int64(C(1,1))));
-set(textY,'String',num2str(int64(C(1,2))));
+[x,y,~]=size(picture);
+%if textX<=x&&textY<=y
+    set(textX,'String',num2str(int64(C(1,1))));
+    set(textY,'String',num2str(int64(C(1,2))));
+%     cursor(1)=textX;
+%     cursor(2)=textY;
+%     updatePicture();
+%end
 
 function mouseClick (object,eventdata)
 C=get (gca,'CurrentPoint');
-addDataPoint(int64(C(1,1)),int64(C(1,2)));
+addDataPoint(C(1,1),C(1,2));
 
 
 % --- Executes on button press in calculate.
@@ -224,7 +228,7 @@ switch dataType
     case 1
         calculate_vlines();
     case 3
-        calculate_H();
+        calculate();
 end
 
 
@@ -288,7 +292,8 @@ function pushbutton3_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 global setPlanes;
-%setPlanes=rand(0,4);
+
+% setPlanes=rand(0,4);
 x = inputdlg('Enter space-separated numbers representing the points that are co-plane:');
 data = str2num(x{:}); 
 if (size(data,2)~=4)
@@ -346,3 +351,11 @@ function slider3_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes on button press in pushbutton9.
+function pushbutton9_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton9 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+loadVanishing();
