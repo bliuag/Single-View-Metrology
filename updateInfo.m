@@ -53,16 +53,9 @@ switch dataType
         end
         set(text,'String',str);
     case 3
-        str='Reference Plane Points:\n';
+        str='Reference Points:\n';
         for i=1:size(rpoints,1)
             str=strcat(str,'#',num2str(i),':',mat2str(rpoints(i,1:2)),'->',mat2str(rpoints(i,3:5)),'\n');
-        end
-        str=sprintf(str);
-        set(text,'String',str);
-    case 4
-        str='Reference Height Points:\n';
-        for i=1:size(hpoint,1)
-            str=strcat(str,'#',num2str(i),':',mat2str(hpoint(i,1:2)),'->',mat2str(hpoint(i,3:5)),'\n');
         end
         str=sprintf(str);
         set(text,'String',str);
@@ -70,9 +63,9 @@ switch dataType
         str='Points:\n';
         for i=1:size(points,1)
            if mod(i,2)==1
-               str=strcat(str,'#',num2str(i),':',mat2str(points(i,1:2)),'->',mat2str(points(i,3:5)),' base\n');
+               str=strcat(str,'#',num2str(i),':',mat2str(int64(points(i,1:2))),'->',mat2str(int64(points(i,3:5))),' base\n');
            else
-               str=strcat(str,'#',num2str(i),':',mat2str(points(i,1:2)),'->',mat2str(points(i,3:5)),' top\n');
+               str=strcat(str,'#',num2str(i),':',mat2str(int64(points(i,1:2))),'->',mat2str(int64(points(i,3:5))),' top\n');
            end
         end
         str=sprintf(str);
