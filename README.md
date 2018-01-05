@@ -4,6 +4,7 @@ The basic idea comes from the report `SingleViewMetrologyFinalReport.pdf`.
 
 Here attached the abstract of this report to show the basic idea.
 
+You may use FreeWRL to view office/office.wrl for a demo.
 ## Abstract
 
 We describe how 3D affine measurements may be computed from a single perspective view of a scene given only minimal geometric information determined from the image. This minimal information is typically the vanishing line of a reference plane, and a vanishing point for a direction not parallel to plane. It is shown that affine scene structure may then be determined from the image, without knowledge of the camera’s internal calibration (e.g. focal length), nor of the explicit relation between camera and world (pose).
